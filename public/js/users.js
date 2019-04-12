@@ -67,22 +67,3 @@ $('#login').click(() => {
     }
   })
 })
-
-
-// function deleteVendor(id) {
-//     $.ajax({
-//         type: "DELETE",
-//         url: "/vendors",
-//         data: {
-//             id: id
-//         },
-//         success: function (data) {
-//             if (data.success) {
-//                 console.log(data.success)
-//                 refreshList();
-//             } else {
-//                 alert('Some error occurred');
-//             }
-//         }
-//     })
-// }

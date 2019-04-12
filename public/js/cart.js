@@ -23,7 +23,7 @@ function getVendor(id, done) {
 }
 
 function refreshList(productId, quantity, id, userId) {
-  console.log(productId);
+  //console.log(productId);
   $.get(`/products/${productId}`, (product) => {
     console.log(product[0].vendorId);
     let price = product[0].price * quantity;
@@ -35,7 +35,7 @@ function refreshList(productId, quantity, id, userId) {
                     <div class="card-body">
                         <h5>Name: ${product[0].name}</h5>
                         <h5>Total Price: ${price}</h5>
-                        <h5>Quantity: ${quantity}</h5>
+                        <h5>Quantity: <input id="${product.id}" type="number" value="${quantity}" min="1" max="${product[0].quantity}"></h5>
                         <h5>Vendor: ${data}</h5>
                         <button class="btn btn-danger" onclick="removeFromCart(${id}, ${userId})">Remove From Cart </button>
                     </div>

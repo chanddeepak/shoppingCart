@@ -66,37 +66,22 @@ function cartItems(userId) {
 $('#login').click(() => {
   let username = $('#username').val();
   let email = $('#email').val();
-  $.post('/users', {
-    username,
-    email
-  }, (data) => {
-    if (data.success) {
-      $('#welcomeText').empty();
-      $('#listText').empty();
-      $('#welcomeText').append(`Welcome ${username}`)
-      $('#listText').append("List of Products in Cart");
-      cartItems(data.id)
-    } else {
-      alert('Some error occurred')
-    }
-  })
+  if (username == "" || email == "") {
+    alert("Fields cannot be empty");
+  } else {
+    $.post('/users', {
+      username,
+      email
+    }, (data) => {
+      if (data.success) {
+        $('#welcomeText').empty();
+        $('#listText').empty();
+        $('#welcomeText').append(`Welcome ${username}`)
+        $('#listText').append("List of Products in Cart");
+        cartItems(data.id)
+      } else {
+        alert('Some error occurred')
+      }
+    })
+  }
 })
-
-
-// function deleteVendor(id) {
-//     $.ajax({
-//         type: "DELETE",
-//         url: "/vendors",
-//         data: {
-//             id: id
-//         },
-//         success: function (data) {
-//             if (data.success) {
-//                 console.log(data.success)
-//                 refreshList();
-//             } else {
-//                 alert('Some error occurred');
-//             }
-//         }
-//     })
-// }

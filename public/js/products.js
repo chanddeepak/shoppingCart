@@ -81,18 +81,27 @@ refreshList();
 
 
 $('#addProduct').click(() => {
-    $.post('/products', {
-        name: $('#productName').val(),
-        price: $('#price').val(),
-        quantity: $('#quantity').val(),
-        vendorId: $('#vendorName').val()
-    }, (data) => {
-        if (data.success) {
-            refreshList()
-        } else {
-            alert('Some error occurred')
-        }
-    })
+    let name = $('#productName').val();
+    let price = $('#price').val();
+    let quantity = $('#quantity').val();
+    let vendorId = $('#vendorName').val();
+
+    if (name == "" || price == 0) {
+        alert("Fields cannot be empty");
+    } else {
+        $.post('/products', {
+            name,
+            price,
+            quantity,
+            vendorId
+        }, (data) => {
+            if (data.success) {
+                refreshList()
+            } else {
+                alert('Some error occurred')
+            }
+        })
+    }
 })
 
 function createVendor(vendor) {

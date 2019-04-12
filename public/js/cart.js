@@ -25,11 +25,12 @@ function getVendor(id, done) {
 function refreshList(productId, quantity, id, userId) {
   //console.log(productId);
   $.get(`/products/${productId}`, (product) => {
-    console.log(product[0].vendorId);
+    //console.log(product[0].vendorId);
     let price = product[0].price * quantity;
-    getVendor(product[0].vendorId, (data) => {
-      $('#productList').append(
-        `
+    if (product[0].vendorId != null) {
+      getVendor(product[0].vendorId, (data) => {
+        $('#productList').append(
+          `
             <div class="col-md-3">
                 <div class="card" style="width: 15rem;" >
                     <div class="card-body">
@@ -41,9 +42,10 @@ function refreshList(productId, quantity, id, userId) {
                     </div>
             </div>
             <br>`
-      )
+        )
 
-    })
+      })
+    }
 
   })
 }

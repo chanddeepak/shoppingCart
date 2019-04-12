@@ -19,15 +19,21 @@ refreshList();
 
 
 $('#button-addon2').click(() => {
-    $.post('/vendors', {
-        name: $('#vendorName').val()
-    }, (data) => {
-        if (data.success) {
-            refreshList()
-        } else {
-            alert(data.err)
-        }
-    })
+    let name = $('#vendorName').val();
+
+    if (name == "") {
+        alert("Field cannot be empty");
+    } else {
+        $.post('/vendors', {
+            name
+        }, (data) => {
+            if (data.success) {
+                refreshList()
+            } else {
+                alert(data.err)
+            }
+        })
+    }
 })
 
 function deleteProduct() {

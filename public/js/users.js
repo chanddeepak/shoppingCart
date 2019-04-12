@@ -11,6 +11,7 @@ function addToCart(userId, productId, id) {
       alert("Some error occurred");
     }
   })
+
 }
 
 function getVendor(id, done) {
@@ -26,23 +27,25 @@ function refreshList(userId) {
   $.get('/products', (data) => {
     $('#productList').empty();
     for (let product of data) {
-      getVendor(product.vendorId, (data) => {
-        $('#productList').append(
-          `
+      if (product.vendorId != null) {
+        getVendor(product.vendorId, (data) => {
+          $('#productList').append(
+            `
             <div class="col-md-3">
                 <div class="card" style="width: 15rem;" >
                     <div class="card-body">
                         <h5>Name: ${product.name}</h5>
                         <h5>Price: ${product.price}</h5>
-                        <h5>Quantity: <input id="${product.id}" type="number" min="1" max="${product.quantity}"></h5>
+                        <h5>Quantity: <input id="${product.id}" type="number" value="1" min="1" max="${product.quantity}"></h5>
                         <h5>Vendor: ${data}</h5>
                         <button class="btn btn-primary" onclick="addToCart(${userId}, ${product.id}, ${product.id})">Add To Cart </button>
                     </div>
             </div>
             <br>`
-        )
+          )
 
-      })
+        })
+      }
 
 
     }
@@ -54,16 +57,21 @@ function refreshList(userId) {
 $('#login').click(() => {
   let username = $('#username').val();
   let email = $('#email').val();
-  $.post('/users', {
-    username,
-    email
-  }, (data) => {
-    if (data.success) {
-      $('#welcomeText').empty();
-      $('#welcomeText').append(`Welcome ${username}`)
-      refreshList(data.id)
-    } else {
-      alert('Some error occurred')
-    }
-  })
+
+  if (username == "" || email == "") {
+    alert("Fields cannot be empty")
+  } else {
+    $.post('/users', {
+      username,
+      email
+    }, (data) => {
+      if (data.success) {
+        $('#welcomeText').empty();
+        $('#welcomeText').append(`Welcome ${username}`)
+        refreshList(data.id)
+      } else {
+        alert('Some error occurred')
+      }
+    })
+  }
 })

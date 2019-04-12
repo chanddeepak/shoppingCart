@@ -24,7 +24,7 @@ app.use('/products', products);
 app.use('/users', users);
 app.use('/cart', cart);
 
-const port = process.env.port || 5000;
+const port = process.env.PORT || 5000;
 
 db.sync()
     .then(() => {

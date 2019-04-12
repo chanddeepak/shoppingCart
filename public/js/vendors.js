@@ -36,6 +36,21 @@ $('#button-addon2').click(() => {
     }
 })
 
+function deleteFromCart() {
+    $.ajax({
+        type: "DELETE",
+        url: "/cart",
+        success: function (data) {
+            if (data.success) {
+                //console.log(data.success)
+                refreshList();
+            } else {
+                alert(data.err);
+            }
+        }
+    })
+}
+
 function deleteProduct() {
     $.ajax({
         type: "DELETE",
@@ -43,7 +58,7 @@ function deleteProduct() {
         success: function (data) {
             if (data.success) {
                 //console.log(data.success)
-                refreshList();
+                deleteFromCart()
             } else {
                 alert(data.err);
             }
